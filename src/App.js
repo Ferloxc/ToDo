@@ -1,25 +1,46 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
+import TodoFilter from './components/TodoFilter';
+import todosData from './data/todosData';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [todos, setTodos] = useState(todosData);
+  const [filter, setFilter] = useState('');
+
+  const handleToggle = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, estado: "completado" } : todo
+      )
+    );
+  };
+
+  const handleAddTodo = (newTodo) => {
+    setTodos([...todos, newTodo]);
+  };
+
+  const handleDeleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const handleFilterChange = (value) => {
+    setFilter(value);
+  };
+
+  const filteredTodos = filter
+    ? todos.filter((todo) => todo.estado === filter)
+    : todos;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>ToDo's</h1>
+      <TodoFilter filter={filter} onFilterChange={handleFilterChange} />
+      <TodoList todos={filteredTodos} onToggle={handleToggle} onDelete={handleDeleteTodo} />
+      <TodoForm onAdd={handleAddTodo} />
     </div>
   );
-}
+};
 
 export default App;
