@@ -22,8 +22,11 @@ const App = () => {
   };
 
   const handleDeleteTodo = (id) => {
+    console.log("hellooooo");
     setTodos(todos.filter((todo) => todo.id !== id));
   };
+
+
 
   const handleFilterChange = (value) => {
     setFilter(value);

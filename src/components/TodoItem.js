@@ -1,11 +1,13 @@
 import React from 'react';
 
-const TodoItem = ({ todo, onToggle, onDelete }) => {
+const TodoItem = ({ todo, onDelete, onToggle }) => {
+ 
   const handleToggle = () => {
     onToggle(todo.id);
   };
-
+  
   const handleDelete = () => {
+    console.log("hasdasdasdd")
     onDelete(todo.id);
   };
 
